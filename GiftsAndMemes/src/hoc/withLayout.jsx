@@ -11,7 +11,7 @@ function withLayout(WrappedComponent) {
   function WrapperComponent({ ...props }) {
     return (
       <>
-        {/* <AppBarSearchField /> */}
+        <AppBarSearchField />
         <WrappedComponent {...props} />
       </>
     );

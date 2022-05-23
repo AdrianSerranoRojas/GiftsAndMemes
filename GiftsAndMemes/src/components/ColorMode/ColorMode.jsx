@@ -15,7 +15,7 @@ export default function ColorMode() {
     <Box
       sx={{
         display: "flex",
-        width: "100%",
+        width: "10%",
         alignItems: "center",
         justifyContent: "center",
         // bgcolor: "background.default",
