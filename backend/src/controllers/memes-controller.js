@@ -9,17 +9,15 @@ import {
 // import jsmediatags from "jsmediatags";
 export async function getMemes(req, res, next) {
   try {
-    const songs = await Songs.find().select().lean().exec();
+    const memes = await Memes.find().select().lean().exec();
 
     res.status(200).send({
-      data: songs,
+      data: memes,
     });
   } catch (error) {
     next(error);
   }
 }
-
-
 
 export function getTags(req, res, next) {
   new jsmediatags.Reader(req.body.file).setTagsToRead().read({
@@ -30,7 +28,7 @@ export function getTags(req, res, next) {
   });
 }
 async function step1Cloudinary(newImage) {
-  const resultLoadImage = await uploadSongCloud(newImage);
+  const resultLoadImage = await uploadImageCloud(newImage);
   return {
     url: resultLoadImage.secure_url,
     public_id: resultLoadImage.public_id,
@@ -51,53 +49,51 @@ async function step2DataFile(songFile) {
     });
   });
 }
-async function astep3CreateDB(songFile, songUser, songData, songImage) {
-  const newSong = await Songs.create({
-    songFile: songFile,
-    songUser: songUser,
-    songData: songData,
-    songImage: songImage,
+async function astep3CreateDB(memeFile, memeUser) {
+  const newSong = await Memes.create({
+    memeFile: memeFile,
+    memeUser: memeUser,
   });
   console.log(newSong);
 }
-export async function createSong(req, res, next) {
-  const { uid, email } = req.user;
-  const songUser = {
-    userId: uid,
-    email: email,
-  };
+export async function createMeme(req, res, next) {
+  // const { uid, email } = req.user;
+  // const memeUser = {
+  //   userId: uid,
+  //   email: email,
+  // };
 
   try {
     const newImage = req.body[0];
     if (newImage) {
-      var songFile = await step1Cloudinary(newImage);
+      var memeFile = await step1Cloudinary(newImage);
     }
-    // get data file
-    const tag = await step2DataFile(songFile.url);
+    // // get data file
+    // const tag = await step2DataFile(songFile.url);
 
-    const songDataTaker = async (tag) => {
-      const data = tag.tags.picture.data;
-      const format = tag.tags.picture.format;
-      let base64string = "";
-      for (let i = 0; i < data.length; i++)
-        base64string += String.fromCharCode(data[i]);
-      let image33 = [`data:${format};base64,${btoa(base64string)}`];
-      const image = await step33Cloudinary(image33);
+    // const songDataTaker = async (tag) => {
+    //   const data = tag.tags.picture.data;
+    //   const format = tag.tags.picture.format;
+    //   let base64string = "";
+    //   for (let i = 0; i < data.length; i++)
+    //     base64string += String.fromCharCode(data[i]);
+    //   let image33 = [`data:${format};base64,${btoa(base64string)}`];
+    //   const image = await step33Cloudinary(image33);
 
-      return image;
-    };
-    const songData = {
-      title: tag?.tags?.title,
-      artist: tag?.tags?.artist,
-      album: tag?.tags?.album,
-    };
-    const songImageTaker = await songDataTaker(tag);
+    //   return image;
+    // };
+    // const songData = {
+    //   title: tag?.tags?.title,
+    //   artist: tag?.tags?.artist,
+    //   album: tag?.tags?.album,
+    // };
+    // const songImageTaker = await songDataTaker(tag);
 
     const total = await astep3CreateDB(
-      songFile,
-      songUser,
-      songData,
-      songImageTaker
+      memeFile,
+      // memeUser,
+      // songData,
+      // songImageTaker
     );
 
     res.sendStatus(200);

@@ -3,11 +3,18 @@ import Box from "@mui/material/Box";
 import AddMemeForm from "../../components/AddMemeForm/AddMemeForm";
 import SearchMemeListing from "../../components/SearchMemeListing/SearchMemeListing";
 
-const Home = () => {
+const UploadPage = () => {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <SearchMemeListing />
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyItems: "center",
+        alignItems: "center",
+      }}
+    >
+      <AddMemeForm />
     </Box>
   );
 };
-export default withLayout(Home);
+export default withLayout(UploadPage);

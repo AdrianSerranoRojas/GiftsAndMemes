@@ -16,40 +16,20 @@ export const memeApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getSongs: builder.query({
+    getMemes: builder.query({
       query: () => `/songs`,
     }),
-    getSong: builder.query({
+    getMeme: builder.query({
       query: (id) => `/songs/${id}`,
     }),
-    getSongsFiltered: builder.query({
+    getMemesFiltered: builder.query({
       query: (filter) => `/filterSongs/${filter}`,
     }),
-    getMySongs: builder.query({
-      query: () => `/mySongs`,
-    }),
-    getMyLikedSongs: builder.query({
-      query: () => `/likedSongs`,
-    }),
-    createSong: builder.mutation({
+    createMeme: builder.mutation({
       query: (body) => ({
-        url: `/songs`,
+        url: `/memes`,
         method: "POST",
         body,
-      }),
-    }),
-    likeSong: builder.mutation({
-      query: ({ uid, ...patch }) => ({
-        url: `/like/${uid}`,
-        method: "PATCH",
-        body: patch,
-      }),
-    }),
-    notLikeSong: builder.mutation({
-      query: ({ uid, ...patch }) => ({
-        url: `/notLike/${uid}`,
-        method: "PATCH",
-        body: patch,
       }),
     }),
   }),
@@ -57,12 +37,8 @@ export const memeApi = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
-  useGetSongsQuery,
-  useCreateSongMutation,
-  useGetMySongsQuery,
-  useGetSongsFilteredQuery,
-  useLikeSongMutation,
-  useGetSongQuery,
-  useNotLikeSongMutation,
-  useGetMyLikedSongsQuery
+  useGetMemesQuery,
+  useCreateMemeMutation,
+  useGetMemesFilteredQuery,
+  useGetMemeQuery,
 } = memeApi;

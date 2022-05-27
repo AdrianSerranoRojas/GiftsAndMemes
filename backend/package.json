@@ -14,10 +14,12 @@
   "dependencies": {
     "cloudinary": "^1.30.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "firebase": "^9.8.1",
     "firebase-admin": "^10.2.0",
     "helmet": "^5.1.0",
+    "loglevel": "^1.8.0",
     "mongoose": "^6.3.4",
     "morgan": "^1.10.0",
     "validator": "^13.7.0"

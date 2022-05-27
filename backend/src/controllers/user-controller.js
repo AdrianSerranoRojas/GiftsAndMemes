@@ -129,11 +129,7 @@ export async function deleteUser(req, res, next) {
 }
 export async function signUp(req, res, next) {
   const { uid, email } = req.user;
-  console.log(req.body);
-  const { userName, birthday, gender, country } = req.body.userData;
-
   try {
-
     const user = await User.findOne({ email: email });
     if (user) {
       return res.sendStatus(200);

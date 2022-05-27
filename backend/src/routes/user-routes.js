@@ -22,6 +22,6 @@ UserRouter.get("/user/:userId", getUserDetails);
 
 UserRouter.post("/sign-up", authMiddleware, signUp);
 UserRouter.patch("/user/:userId", updateUser);
-// UserRouter.post("/sign-up",  signUp);
+UserRouter.post("/sign-up",  signUp);
 
 export default UserRouter;
