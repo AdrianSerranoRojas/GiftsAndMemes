@@ -17,7 +17,7 @@ export const memeApi = createApi({
   }),
   endpoints: (builder) => ({
     getMemes: builder.query({
-      query: () => `/songs`,
+      query: () => `/memes`,
     }),
     getMeme: builder.query({
       query: (id) => `/songs/${id}`,

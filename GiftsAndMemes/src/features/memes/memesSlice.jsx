@@ -1,41 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const initialState = {
-  filterSong: "",
-  newSong: {
-    songFile: "",
-    songImage: "",
-    songName: "",
-    songArtist: "",
-    songAlbum: "",
-    songGenre: "",
-    userSong: "",
-  },
-  currentSong: [
-    {
-      isPlaying: false,
-      audio: "",
-      songName: "",
-      songArtist: "",
-      songGenre: ""
-    },
-  ],
-  trackIndex: 0,
+  filterMeme: "",
 };
 
 export const songsSlice = createSlice({
-  name: "songs",
+  name: "memes",
   initialState,
   reducers: {
     setFilterMeme: (state, action) => {
-      state.filterSong = action.payload;
+      state.filterMeme = action.payload;
     },
   },
 });
 
-export const {
-setFilterMeme,
-} = songsSlice.actions;
+export const { setFilterMeme } = songsSlice.actions;
 
 export const memesSelector = (state) => state.songs;

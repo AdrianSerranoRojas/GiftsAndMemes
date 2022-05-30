@@ -6,7 +6,9 @@ import Grid from "@mui/material/Grid";
 import { useTheme } from "@mui/material/styles";
 
 export default function MemeCard({ meme }) {
+  console.log(meme);
   const memeUrl = meme?.memeFile?.url;
+  const memeUrlGif = meme?.memeFile?.url.slice(0, -3) + "gif";
 
   const theme = useTheme();
 
@@ -25,11 +27,11 @@ export default function MemeCard({ meme }) {
     >
       <Grid container spacing={12}>
         <Grid item xs={0.5}>
-          <Avatar
+          <img
             variant="square"
-            src={memeUrl}
+            src={memeUrlGif}
             sx={{ width: 56, height: 56 }}
-          ></Avatar>
+          />
         </Grid>
       </Grid>
     </Card>

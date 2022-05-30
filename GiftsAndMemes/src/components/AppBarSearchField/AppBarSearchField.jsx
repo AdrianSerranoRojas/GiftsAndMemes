@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -21,6 +22,8 @@ import AuthContext from "../../context/AuthContext";
 import ColorMode from "../ColorMode/ColorMode";
 
 import { userSignOut } from "../../firebase/firebase";
+
+import { setFilterMeme, memesSelector } from "../../features/memes/memesSlice";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -63,6 +66,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const dispatch = useDispatch();
+  const { filterMeme } = useSelector(memesSelector);
   const currentUser = useContext(AuthContext);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -87,6 +92,11 @@ export default function PrimarySearchAppBar() {
   const handleUploadGif = () => {
     navigate(`/upload`);
     setAnchorEl(null);
+  };
+
+  const handleSearch = (filter) => {
+    dispatch(setFilterMeme(filter));
+    console.log(filterMeme);
   };
 
   const menuId = "primary-search-account-menu";
@@ -159,8 +169,8 @@ export default function PrimarySearchAppBar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Search..."
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

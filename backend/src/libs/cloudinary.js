@@ -15,6 +15,7 @@ export const uploadImageCloud = async (filePath) => {
   });
 };
 
+
 export const deleteImageCloud = async (id) => {
   return await cloudinary.v2.uploader.destroy(id);
 };
