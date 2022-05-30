@@ -1,10 +1,7 @@
 // import db from "../models";
 import { Memes } from "../models/memes-model.js";
 import { User } from "../models/user-model.js";
-import {
-  deleteImageCloud,
-  uploadImageCloud,
-} from "../libs/cloudinary.js";
+import { deleteImageCloud, uploadImageCloud } from "../libs/cloudinary.js";
 
 // import jsmediatags from "jsmediatags";
 export async function getMemes(req, res, next) {
@@ -57,11 +54,11 @@ async function astep3CreateDB(memeFile, memeUser) {
   console.log(newSong);
 }
 export async function createMeme(req, res, next) {
-  // const { uid, email } = req.user;
-  // const memeUser = {
-  //   userId: uid,
-  //   email: email,
-  // };
+  const { uid, email } = req.user;
+  const memeUser = {
+    userId: uid,
+    email: email,
+  };
 
   try {
     const newImage = req.body[0];
@@ -91,7 +88,7 @@ export async function createMeme(req, res, next) {
 
     const total = await astep3CreateDB(
       memeFile,
-      // memeUser,
+      memeUser
       // songData,
       // songImageTaker
     );

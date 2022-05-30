@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
@@ -17,6 +18,8 @@ import ListSubheader from "@mui/material/ListSubheader";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 
+import apiGiphy from "../../services/apiGiphy";
+
 const Widget = styled("div")(({ theme }) => ({
   overflowY: "scroll",
   padding: 0,
@@ -33,41 +36,82 @@ const Widget = styled("div")(({ theme }) => ({
 
 function SearchMemeListing() {
   const { filterMeme } = useSelector(memesSelector);
-  const { data, isLoading, isSuccess } = useGetMemesFilteredQuery(filterMeme);
-  const { data:dataAll, isSuccess:isSAll } = useGetMemesQuery();
+  const [gifs, setGifs] = useState([]);
+  // const { data, isLoading, isSuccess } = useGetMemesFilteredQuery(filterMeme);
+  const { data: dataAll, isSuccess: isSAll } = useGetMemesQuery();
+  const keyword = "hola";
 
-  console.log(dataAll)
+  // const giphys = async () => {
+  //   await apiGiphy();
+  // }
+  // console.log(giphys());
+  console.log(dataAll);
 
-   return (
-     <ImageList sx={{ width: 500, height: 450 }}>
-       <ImageListItem key="Subheader" cols={2}>
-         <ListSubheader component="div">MEMES</ListSubheader>
-       </ImageListItem>
-       {isSAll &&
-       dataAll.data.map((item) => (
-         <ImageListItem key={item.memeFile.url}>
-           <img
-             src={`${item.memeFile.url.slice(0, -3) + "gif"}`}
+  useEffect(() => {
+    apiGiphy(keyword).then((apiGifts) => {
+      console.log(apiGifts);
+      setGifs(apiGifts);
+    });
+  }, [keyword]);
 
-             alt={item.title}
+  return (
+    <>
+      <ImageList sx={{ width: 500, height: 450 }}>
+        <ImageListItem key="Subheader" cols={2}>
+          <ListSubheader component="div">MEMES</ListSubheader>
+        </ImageListItem>
+        {isSAll &&
+          dataAll.data.map((item) => (
+            <ImageListItem key={item.memeFile.url}>
+              <img
+                src={`${item.memeFile.url.slice(0, -3) + "gif"}`}
+                alt={item.title}
+              />
+              <ImageListItemBar
+                title={item.title}
+                subtitle={item.author}
+                actionIcon={
+                  <IconButton
+                    //  onClick={}
+                    sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                    aria-label={`info about ${item.title}`}
+                  >
+                    <InfoIcon />
+                  </IconButton>
+                }
+              />
+            </ImageListItem>
+          ))}
+      </ImageList>
 
-           />
-           <ImageListItemBar
-             title={item.title}
-             subtitle={item.author}
-             actionIcon={
-               <IconButton
-                 sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                 aria-label={`info about ${item.title}`}
-               >
-                 <InfoIcon />
-               </IconButton>
-             }
-           />
-         </ImageListItem>
-       ))}
-     </ImageList>
-   );
+      <ImageList sx={{ width: 500, height: 450 }}>
+        <ImageListItem key="Subheader" cols={2}>
+          <ListSubheader component="div">MEMES</ListSubheader>
+        </ImageListItem>
+        {gifs?.length > 1 &&
+          gifs.map((item) => (
+            <ImageListItem key={item?.url}>
+              <img
+                src={`${item?.url}`}
+                alt={item?.title}
+              />
+              <ImageListItemBar
+                title={item?.title}
+                actionIcon={
+                  <IconButton
+                    //  onClick={}
+                    sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                    aria-label={`info about ${item?.title}`}
+                  >
+                    <InfoIcon />
+                  </IconButton>
+                }
+              />
+            </ImageListItem>
+          ))}
+      </ImageList>
+    </>
+  );
 
   // return (
   //   <>

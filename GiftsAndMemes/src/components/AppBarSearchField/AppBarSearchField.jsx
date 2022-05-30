@@ -148,22 +148,22 @@ export default function PrimarySearchAppBar() {
         <Toolbar>
           <ColorMode />
           <IconButton
+            onClick={() => navigate(`/`)}
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" } }}
+            >
+              MEMES
+            </Typography>
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            MEMES
-          </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

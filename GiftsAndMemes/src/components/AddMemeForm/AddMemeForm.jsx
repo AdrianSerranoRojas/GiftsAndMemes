@@ -67,13 +67,14 @@ function AddMemeForm() {
         {image.length > 0 && (
           <div>
             {image.map((image, index) => (
-              <CardMedia
-                component="img"
-                height="140"
-                image={image}
-                key={index}
-                alt="green iguana"
-              />
+              <div>There is one file</div>
+              // <CardMedia
+              //   component="img"
+              //   height="140"
+              //   image={image}
+              //   key={index}
+              //   alt="green iguana"
+              // />
               // <img src={image} key={index} />
             ))}
           </div>
